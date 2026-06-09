@@ -134,7 +134,7 @@ class ChristmasApp {
 
     setupEventListeners() {
         // Window resize
-        window.addEventListener('resize', this.onResize.bind(this));
+        this.rendererManager.domElement.addEventListener('resize', this.onResize.bind(this));
 
         // Mouse/touch interactions
         this.rendererManager.domElement.addEventListener('click', this.onClick.bind(this));
