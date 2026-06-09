@@ -44,6 +44,9 @@ class ChristmasApp {
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2();
 
+        // Bound event handlers
+        this._onResize = null;
+
         // Container
         this.container = document.getElementById('canvas-container');
     }
@@ -134,7 +137,8 @@ class ChristmasApp {
 
     setupEventListeners() {
         // Window resize
-        window.addEventListener('resize', this.onResize.bind(this));
+        this._onResize = this.onResize.bind(this);
+        window.addEventListener('resize', this._onResize);
 
         // Mouse/touch interactions
         this.rendererManager.domElement.addEventListener('click', this.onClick.bind(this));
@@ -354,6 +358,12 @@ class ChristmasApp {
 
     dispose() {
         this.stop();
+
+        // Remove window event listeners
+        if (this._onResize) {
+            window.removeEventListener('resize', this._onResize);
+            this._onResize = null;
+        }
 
         // Dispose all systems and objects
         this.christmasTree?.dispose();
