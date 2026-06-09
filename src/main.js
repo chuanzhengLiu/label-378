@@ -137,6 +137,9 @@ class ChristmasApp {
 
     setupEventListeners() {
         // Window resize
+        if (this._onResize) {
+            window.removeEventListener('resize', this._onResize);
+        }
         this._onResize = this.onResize.bind(this);
         window.addEventListener('resize', this._onResize);
 
